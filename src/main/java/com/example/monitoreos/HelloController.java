@@ -20,7 +20,7 @@ public class HelloController implements Initializable {
     @FXML
     private Label welcomeText;
     @FXML
-    private TextField entrada;
+    private TextField entrada, busqueda1,busqueda2;
     @FXML
     private TableView<FormatoDirecciones> table;
     @FXML
@@ -31,7 +31,6 @@ public class HelloController implements Initializable {
     private TableColumn<String,String> nombre;
 
 
-     int numDirecciones;
 ObservableList<String> saves;
 
     ObservableList<FormatoDirecciones> vista = FXCollections.observableArrayList(
@@ -93,4 +92,15 @@ ObservableList<String> saves;
         val = Pattern.matches(regex, ip);
         return val;
     }
+
+    public void rangoIP(ActionEvent actionEvent) throws IOException {
+        String rango1 =busqueda1.getText();
+        String rango2 = busqueda2.getText();
+
+        while(rango1 != rango2){
+
+        }
+    }
+
+    public void limpiar
 }
