@@ -7,11 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -31,6 +30,7 @@ public class HelloController implements Initializable {
     private TableColumn<String,String> nombre;
 
 
+
 ObservableList<String> saves;
 
     ObservableList<FormatoDirecciones> vista = FXCollections.observableArrayList(
@@ -45,8 +45,6 @@ ObservableList<String> saves;
     }
 
     public void initialize(URL url, ResourceBundle rb) {
-            welcomeText.setText("Ingrese una direccion IPv4");
-
 
         estado.setCellValueFactory(new PropertyValueFactory<String,String>("estado"));
         direccion.setCellValueFactory(new PropertyValueFactory<String,String>("direccion"));
@@ -56,10 +54,14 @@ ObservableList<String> saves;
 
 
     public void agregarIP(ActionEvent actionEvent) throws IOException {
+        Alert alert;
         String dato = entrada.getText();
         if(dato.isEmpty())
         {
-            entrada.setText("Favor de ingresar alguna direccion");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Campos vacios");
+            alert.setHeaderText("favor de ingresar algun dato");
+            alert.show();
         } else if(validaraIP(dato) && revisarLista(dato)){
             vista.add(new FormatoDirecciones(
                     new hacerPing(dato).ping.getHostAddress(),
@@ -68,7 +70,11 @@ ObservableList<String> saves;
                     )
             );
         }else {
-            entrada.setText("Favor de ingresar una direccion valida");
+            alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("IP invalida");
+            alert.setHeaderText("Revise la IP ingresada");
+            alert.setContentText("Puede que ya se haya ingresado dicha IP o este mal escrita.");
+            alert.show();
         }
         //"192.168.100.41"
     }
@@ -94,13 +100,47 @@ ObservableList<String> saves;
     }
 
     public void rangoIP(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         String rango1 =busqueda1.getText();
-        String rango2 = busqueda2.getText();
+        String [] parts1 = rango1.split("\\.");
+        String valor1 = parts1[3];
+        int entero1 = Integer.parseInt(valor1);
+        String rango2 =busqueda2.getText();
+        String [] parts2 = rango2.split("\\.");
+        int entero2 = Integer.parseInt(parts2[3]);
+        String cuerpo = parts1[0]+"."+parts1[1]+"."+parts1[2]+".";
 
-        while(rango1 != rango2){
-
+        if(validaraIP(rango1)){
+            if (validaraIP(rango2)){
+                if(rango1.equals(rango2)){
+                    alert.setTitle("Rango no valido");
+                    alert.setHeaderText("Las direcciones ip no pueden ser iguales");
+                    alert.show();
+                }else {
+                    vista.clear();
+                    for(int i = entero1; i<entero2;i++){
+                        vista.add(new FormatoDirecciones(
+                                        new hacerPing(String.valueOf(cuerpo+i)).ping.getHostAddress(),
+                                        new hacerPing(String.valueOf(cuerpo+i)).estado,
+                                        new hacerPing(String.valueOf(cuerpo+i)).ping.getHostName()
+                                )
+                        );
+                    }
+                }
+            }else {
+                alert.setTitle("Rango no valido");
+                alert.setHeaderText("Las direcciones ip no son validas");
+                alert.show();
+            }
+        } else {
+            alert.setTitle("Rango no valido");
+            alert.setHeaderText("El rango que ingreso no es valido");
+            alert.setContentText("un ejemplo de rango ip seria: 192.168.0.2 a 192.168.0.26");
+            alert.show();
         }
     }
 
-    public void limpiar
+    public void limpiar(ActionEvent actionEvent) throws IOException{
+        vista.clear();
+    }
 }
