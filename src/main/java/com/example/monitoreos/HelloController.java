@@ -52,7 +52,6 @@ ObservableList<String> saves;
         estado.setCellValueFactory(new PropertyValueFactory<String,String>("estado"));
         direccion.setCellValueFactory(new PropertyValueFactory<String,String>("direccion"));
         nombre.setCellValueFactory(new PropertyValueFactory<String,String>("nombre"));
-
         table.setItems(vista);
     }
 
@@ -62,7 +61,7 @@ ObservableList<String> saves;
         if(dato.isEmpty())
         {
             entrada.setText("Favor de ingresar alguna direccion");
-        } else if(validaraIP(dato)){
+        } else if(validaraIP(dato) && revisarLista(dato)){
             vista.add(new FormatoDirecciones(
                     new hacerPing(dato).ping.getHostAddress(),
                     new hacerPing(dato).estado,
@@ -73,9 +72,21 @@ ObservableList<String> saves;
             entrada.setText("Favor de ingresar una direccion valida");
         }
         //"192.168.100.41"
-        System.out.println(saves.get(numDirecciones));
-        numDirecciones++;
     }
+
+    private boolean revisarLista(String dato) {
+        boolean val = true;
+        for(int i =0; i< vista.size();i++){
+            if(dato.equals(vista.get(i).getDireccion()))
+            {
+                return val = false;
+            }else {
+                 val = true;
+            }
+        }
+        return val;
+    }
+
     private boolean validaraIP(String ip) {
         boolean val = false;
         String regex = "(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}";
