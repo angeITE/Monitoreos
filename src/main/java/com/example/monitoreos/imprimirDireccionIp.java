@@ -13,38 +13,27 @@ public class imprimirDireccionIp {
     List<FormatoDirecciones> guadados = new ArrayList<>();
     List<String> direccionesIP = new ArrayList<>();
 
-    public imprimirDireccionIp(){}
-
-
     public imprimirDireccionIp(String dato) throws IOException {
-        direccionesIP.add(dato);
-        hacerDireccion(dato);
-    }
-
-    imprimirDireccionIp hacerMultiDirecciones(List<String> dato) throws  IOException{
-        return (imprimirDireccionIp) items;
+        new hacerPing(dato);
     }
 
     ObservableList<FormatoDirecciones> hacerDireccion(String direccion){
 
         try {
-            items = FXCollections.observableArrayList(llenarCeldas());
+            items = FXCollections.observableArrayList(new FormatoDirecciones(
+                    new hacerPing(direccion).ping.getHostName(),
+                    new hacerPing(direccion).estado,
+                    new hacerPing(direccion).ping.getHostAddress()
+                    )
+            );
+                return items;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return items;
     }
-    FormatoDirecciones llenarCeldas() throws IOException {
+    void llenarCeldas(String direccion) throws IOException {
 
-        for(int u=0;u<=direccionesIP.size();u++) {
-            String var = direccionesIP.get(u);
-            objeto = new FormatoDirecciones(
-                      new hacerPing(var).ping.getHostName(),
-                      new hacerPing(var).estado,
-                      new hacerPing(var).ping.getHostAddress()
-            );
-           guadados.add(objeto);
+
         }
-              return (FormatoDirecciones) guadados;
     }
-}
+

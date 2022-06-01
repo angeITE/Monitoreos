@@ -6,7 +6,6 @@ import java.net.*;
 public class hacerPing {
     InetAddress ping;
     String estado;
-    String nombre;
 
     public hacerPing(String ip) throws IOException {
         ping = InetAddress.getByName(ip);

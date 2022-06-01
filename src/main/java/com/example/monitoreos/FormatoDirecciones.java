@@ -1,9 +1,9 @@
 package com.example.monitoreos;
 
 public class FormatoDirecciones {
-    String direccion;
-    String estado;
-    String nombre;
+    private String direccion;
+    private String estado;
+    private String nombre;
     FormatoDirecciones(String direccion, String estado, String nombre){
         this.direccion = direccion;
         this.estado = estado;
