@@ -9,7 +9,7 @@ public class hacerPing {
 
     public hacerPing(String ip) throws IOException {
         ping = InetAddress.getByName(ip);
-        if(ping.isReachable(5000)) {
+        if(ping.isReachable(500)) {
             this.estado = "conectado";
         }else {
             this.estado = "desconectado";

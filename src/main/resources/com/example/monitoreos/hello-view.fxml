@@ -8,11 +8,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.monitoreos.HelloController">
+<Pane fx:id="fondo" blendMode="MULTIPLY" cache="true" cacheHint="SCALE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.monitoreos.HelloController">
    <children>
-      <Button fx:id="botonAddIp" layoutX="120.0" layoutY="122.0" mnemonicParsing="false" onAction="#agregarIP" prefHeight="27.0" prefWidth="67.0" styleClass="background" stylesheets="@../../../../../diseño/fondo.css" text="Agregar" />
-      <Button fx:id="botonBus" layoutX="124.0" layoutY="244.0" mnemonicParsing="false" onAction="#rangoIP" prefHeight="27.0" prefWidth="67.0" styleClass="background" stylesheets="@../../../../../diseño/fondo.css" text="Buscar" />
-      <Button fx:id="botonClean" layoutX="101.0" layoutY="305.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="47.0" prefWidth="113.0" styleClass="background" stylesheets="@../../../../../diseño/fondo.css" text="Limpiar" />
+      <Button fx:id="botonAddIp" layoutX="120.0" layoutY="122.0" mnemonicParsing="false" onAction="#agregarIP" prefHeight="27.0" prefWidth="67.0" styleClass="background" text="Agregar">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Button>
+      <Button fx:id="botonBus" layoutX="124.0" layoutY="244.0" mnemonicParsing="false" onAction="#rangoIP" prefHeight="27.0" prefWidth="67.0" styleClass="background"  text="Buscar" />
+      <Button fx:id="botonClean" layoutX="101.0" layoutY="305.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="47.0" prefWidth="113.0" styleClass="background"  text="Limpiar" />
       <TextField fx:id="busqueda2" alignment="CENTER" layoutX="163.0" layoutY="196.0" prefHeight="25.0" prefWidth="133.0" text="Rango final" />
       <TextField fx:id="busqueda1" alignment="CENTER" layoutX="14.0" layoutY="196.0" prefHeight="25.0" prefWidth="133.0" text="Rango inicial" />
       <TextField fx:id="entrada" alignment="CENTER" layoutX="58.0" layoutY="79.0" prefHeight="25.0" prefWidth="190.0" text="Direccion ip" />

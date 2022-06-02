@@ -103,13 +103,8 @@ ObservableList<String> saves;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         String rango1 =busqueda1.getText();
         String [] parts1 = rango1.split("\\.");
-        String valor1 = parts1[3];
-        int entero1 = Integer.parseInt(valor1);
         String rango2 =busqueda2.getText();
         String [] parts2 = rango2.split("\\.");
-        int entero2 = Integer.parseInt(parts2[3]);
-        String cuerpo = parts1[0]+"."+parts1[1]+"."+parts1[2]+".";
-
         if(validaraIP(rango1)){
             if (validaraIP(rango2)){
                 if(rango1.equals(rango2)){
@@ -117,15 +112,24 @@ ObservableList<String> saves;
                     alert.setHeaderText("Las direcciones ip no pueden ser iguales");
                     alert.show();
                 }else {
+                    int entero1 = Integer.parseInt(parts1[3]);
+                    int entero2 = Integer.parseInt(parts2[3]);
+                    String cuerpo = parts1[0]+"."+parts1[1]+"."+parts1[2]+".";
                     vista.clear();
                     for(int i = entero1; i<entero2;i++){
                         vista.add(new FormatoDirecciones(
-                                        new hacerPing(String.valueOf(cuerpo+i)).ping.getHostAddress(),
-                                        new hacerPing(String.valueOf(cuerpo+i)).estado,
-                                        new hacerPing(String.valueOf(cuerpo+i)).ping.getHostName()
+                                        new hacerPing(cuerpo+i).ping.getHostAddress(),
+                                        new hacerPing(cuerpo+i).estado,
+                                        new hacerPing(cuerpo+i).ping.getHostName()
                                 )
                         );
                     }
+                    vista.add(new FormatoDirecciones(
+                                    new hacerPing(rango2).ping.getHostAddress(),
+                                    new hacerPing(rango2).estado,
+                                    new hacerPing(rango2).ping.getHostName()
+                            )
+                    );
                 }
             }else {
                 alert.setTitle("Rango no valido");
